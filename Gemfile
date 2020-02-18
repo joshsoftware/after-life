@@ -64,7 +64,6 @@ group :test do
   gem 'simplecov', require: false
   gem 'webdrivers'
 end
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'haml', '~> 5.1', '>= 5.1.2'
 gem 'overcommit'
