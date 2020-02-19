@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Wish, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'should have a title' do
+    wish = build(:wish, title: nil)
+    expect(wish.valid?).to eq(false)
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_18_121505) do
+ActiveRecord::Schema.define(version: 2020_02_19_052339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,46 @@ ActiveRecord::Schema.define(version: 2020_02_18_121505) do
     t.string "city"
     t.string "state"
     t.string "country"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_addresses_on_user_id"
+  end
+
+  create_table "relative_user_wishes", force: :cascade do |t|
+    t.bigint "relative_id"
+    t.bigint "user_wish_id"
+    t.bigint "wish_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["relative_id"], name: "index_relative_user_wishes_on_relative_id"
+    t.index ["user_wish_id"], name: "index_relative_user_wishes_on_user_wish_id"
+    t.index ["wish_id"], name: "index_relative_user_wishes_on_wish_id"
+  end
+
+  create_table "relatives", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "relation"
+    t.string "contact_number"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_relatives_on_user_id"
+  end
+
+  create_table "user_wishes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "wish_id"
+    t.text "description"
+    t.string "frequency"
+    t.string "when_to"
+    t.string "end_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_wishes_on_user_id"
+    t.index ["wish_id"], name: "index_user_wishes_on_wish_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,11 +67,11 @@ ActiveRecord::Schema.define(version: 2020_02_18_121505) do
     t.string "encrypted_password", default: "", null: false
     t.string "first_name"
     t.string "last_name"
-    t.string "contact"
+    t.string "contact_number"
     t.boolean "is_alive", default: true, null: false
     t.boolean "is_admin", default: false, null: false
     t.datetime "date_of_birth"
-    t.datetime "last_activity", default: "2020-02-18 10:33:15", null: false
+    t.datetime "last_activity", default: "2020-02-19 06:39:55", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -55,4 +93,11 @@ ActiveRecord::Schema.define(version: 2020_02_18_121505) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "addresses", "users"
+  add_foreign_key "relative_user_wishes", "relatives"
+  add_foreign_key "relative_user_wishes", "user_wishes"
+  add_foreign_key "relative_user_wishes", "wishes"
+  add_foreign_key "relatives", "users"
+  add_foreign_key "user_wishes", "users"
+  add_foreign_key "user_wishes", "wishes"
 end
