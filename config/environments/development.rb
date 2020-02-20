@@ -11,14 +11,15 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    domain: "gmail.com",
-    port: 587,
-    user_name: "itstrendingaf@gmail.com",
-    password: Rails.application.credentials[:password],
-    authentication: 'plain',
-    enable_starttls_auto: true
+    address: 'smtp.yandex.com',
+    port: '587',
+    enable_starttls_auto: true,
+    user_name: Rails.application.credentials.mailer[:email],
+    password: Rails.application.credentials.mailer[:password],
+    authentication: :plain,
+    domain: 'yandex.com'
   }
 
   # Show full error reports.

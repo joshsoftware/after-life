@@ -82,7 +82,8 @@ Devise.setup do |config|
   # to behave the same regardless if the e-mail provided was right or wrong.
   # Does not affect registerable.
   # config.paranoid = true
-
+  config.omniauth :facebook, Rails.application.credentials.facebook[:app_key], Rails.application.credentials.facebook[:app_secret], callback_url: "https://localhost:3000/users/auth/facebook/callback", scope: 'public_profile,email', info_fields: 'name,email'
+  config.omniauth :twitter, Rails.application.credentials.twitter[:app_key], Rails.application.credentials.twitter[:app_secret], callback_url: "https://localhost:3000/users/auth/twitter/callback"
   # By default Devise will store the user in session. You can skip storage for
   # particular strategies by setting this option.
   # Notice that if you are skipping storage for all authentication paths, you
@@ -232,7 +233,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
