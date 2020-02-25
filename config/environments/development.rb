@@ -9,6 +9,19 @@ Rails.application.configure do
   # Do not eager load code on boot.
   config.eager_load = false
 
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    address: 'smtp.yandex.com',
+    port: '587',
+    enable_starttls_auto: true,
+    user_name: Rails.application.credentials.mailer[:email],
+    password: Rails.application.credentials.mailer[:password],
+    authentication: :plain,
+    domain: 'yandex.com'
+  }
+
   # Show full error reports.
   config.consider_all_requests_local = true
 

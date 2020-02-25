@@ -64,11 +64,13 @@ group :test do
   gem 'simplecov', require: false
   gem 'webdrivers'
 end
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'haml', '~> 5.1', '>= 5.1.2'
 gem 'overcommit'
 gem 'rails-i18n'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
 gem 'rubocop', '~> 0.79.0', require: false
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
